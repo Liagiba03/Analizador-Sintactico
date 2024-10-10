@@ -1,0 +1,59 @@
+package codigo;
+import java_cup.runtime.Symbol;
+parser code
+{:
+    private Symbol s;
+    public void syntax_error(Symbol s){
+        this.s = s;
+    }
+    public Symbol getS(){
+        return this.s;
+    }
+:};
+terminal Subject, Adverb, Adjective, Time_Expression, Verb, Verb_Past,
+    Article, Noun, Conector, Interrogative_Pronoun, Possessive_Pronoun,
+    Question_Mark, Auxiliary_Past_Negative, Auxiliary_Past, Auxiliary_Future,
+    Auxiliary_Future_Negative,Identificador, Numero, ERROR;
+non terminal INICIO, QUESTIONS, PS, FS, COMPLEMENT;
+start with INICIO;
+
+INICIO ::=
+    Subject PS COMPLEMENT | QUESTIONS COMPLEMENT Question_Mark | Subject FS COMPLEMENT | Article Noun PS COMPLEMENT | Article Noun FS COMPLEMENT 
+;
+QUESTIONS ::=
+    Auxiliary_Past Subject Verb | 
+    Interrogative_Pronoun Auxiliary_Past Subject Verb |
+    Auxiliary_Past_Negative Subject Verb |
+    Interrogative_Pronoun Auxiliary_Past_Negative Subject Verb |
+    Auxiliary_Future Subject Verb |
+    Auxiliary_Future_Negative Subject Verb |
+    Interrogative_Pronoun Auxiliary_Future Subject Verb |
+    Interrogative_Pronoun Auxiliary_Future_Negative Subject Verb
+;
+PS ::=
+    Verb_Past | Auxiliary_Past_Negative Verb | Auxiliary_Past Verb
+;
+FS ::=
+    Auxiliary_Future Verb | Auxiliary_Future_Negative Verb |
+    Auxiliary_Future Adverb | Auxiliary_Future_Negative Adverb
+;
+COMPLEMENT ::=
+    Adverb Time_Expression Time_Expression |
+    Article Noun |
+    Adjective Noun Conector Noun |
+    Article Adjective Noun |
+    Conector Noun |
+    Possessive_Pronoun Noun Adverb |
+    Time_Expression Noun |
+    Possessive_Pronoun Noun |
+    Possessive_Pronoun Noun Conector Time_Expression |
+    Adverb Conector Noun |
+    Verb Article Noun |
+    Adverb |
+Noun Adverb |
+Adjective Noun |
+Adverb Noun |
+Article Noun Adverb |
+Conector Article Time_Expression
+;
+
